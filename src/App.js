@@ -1,25 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+
+import { AuthLayout } from "./components/auth";
+import { AuthPageLayout } from "./components/auth/AuthPageLayoutHook";
+
+import { Home } from "./pages/home";
+import { SignIn } from "./pages/sign-in";
+import { SignUp } from "./pages/sign-up";
+import { PingPong } from "./pages/ping-pong";
+import { Score } from "./pages/score";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthLayout>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={() => <Home />} />
+          <Route exact path="/sign-in" component={() => <SignIn />} />
+          <Route exact path="/sign-up" component={() => <SignUp />} />
+          <Route
+            exact
+            path="/ping-pong"
+            component={() => (
+              <AuthPageLayout>
+                <PingPong />
+              </AuthPageLayout>
+            )}
+          />
+          <Route
+            exact
+            path="/score"
+            component={() => (
+              <AuthPageLayout>
+                <Score />
+              </AuthPageLayout>
+            )}
+          />
+        </Switch>
+      </Router>
+    </AuthLayout>
   );
 }
 

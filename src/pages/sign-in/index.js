@@ -11,7 +11,6 @@ import {
   StyledTitle,
   StyledText,
   StyledBubbleMessage,
-  StyledBubbleBall,
 } from "../styled";
 
 import {
@@ -70,16 +69,13 @@ export const SignIn = () => {
                 value={authData.password}
                 onChange={onChange}
               />
+              {errorMessage && (
+                <StyledBubbleMessage>{errorMessage}</StyledBubbleMessage>
+              )}
               <Button type="submit" text="SIGN IN" />
               <StyledText>
                 No account? <Link to="/sign-up">Sign Up</Link>
               </StyledText>
-              {errorMessage && (
-                <StyledBubbleMessage>
-                  {errorMessage}
-                  <StyledBubbleBall />
-                </StyledBubbleMessage>
-              )}
             </StyledForm>
           </StyledPageWrapper>
         );

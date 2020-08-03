@@ -57,7 +57,12 @@ export const StyledSignOut = styled.div`
 export const StyledBubbleMessage = styled.div`
   position: relative;
   display: inline-block;
-  margin: 10px 9px 29px 6px;
+  width: calc(100% - 20px);
+  margin-top: 5px;
+  margin-bottom: 0px;
+  margin-left: 8px;
+  margin-right: 0px;
+
   text-align: center;
   font-weight: 700;
   background-color: #fff;
@@ -68,11 +73,6 @@ export const StyledBubbleMessage = styled.div`
     -3px -3px #000, 3px 3px #000, 3px 9px #aaa, 6px 6px #aaa, 9px 3px #aaa;
   transition: all 0.3s ease;
   box-sizing: border-box;
-  position: absolute;
-  bottom: 100px;
-  right: 16px;
-  min-width: 200px;
-  max-width: 260px;
   font-size: 20px;
   &:before,
   &:after {
@@ -81,7 +81,7 @@ export const StyledBubbleMessage = styled.div`
     position: absolute;
     transition: all 0.3s ease;
     box-sizing: border-box;
-    left: 50px;
+    left: 30px;
   }
   &:after {
     background: #fff;
@@ -101,22 +101,4 @@ export const StyledBubbleMessage = styled.div`
     border-left: 3px solid #000;
     border-right: 3px solid #000;
   }
-`;
-
-const ball = keyframes`
-  0% { top: 86px; }
-  50% { top: 66px; }
-  100% { top: 86px; }
-`;
-
-export const StyledBubbleBall = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #fff;
-  animation: ball 0.9s infinite;
-  position: absolute;
-  box-shadow: 0 4px #808080;
-  top: 86px;
-  left: 80px;
 `;

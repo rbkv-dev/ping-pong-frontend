@@ -24,9 +24,6 @@ export const Score = () => {
   const [scrollToDown, setScrollToDown] = useState(false);
 
   const scrollTracking = ({ target }) => {
-    console.log("scrollTop", target.scrollTop);
-    console.log("scrollHeight", target.scrollHeight);
-    console.log("clientHeight", target.clientHeight);
     if (target.scrollTop >= target.scrollHeight - target.clientHeight - 10) {
       setScrollToDown(false);
     } else {

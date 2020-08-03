@@ -3,7 +3,6 @@ import { StyledInputWrapper, StyledInput } from "./styled";
 
 export const Input = ({ type, id, placeholder, value, onChange }) => {
   useEffect(() => {}, [value]);
-  // console.log(value);
   return (
     <StyledInputWrapper>
       <StyledInput

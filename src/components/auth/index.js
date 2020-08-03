@@ -43,7 +43,7 @@ export const AuthLayout = ({ children }) => {
     });
     const _response = await response.json();
     console.log(_response);
-    if (_response) setAuth(true);
+    if (_response) setAuth(_response.token);
     // setAuth(true);
   };
 

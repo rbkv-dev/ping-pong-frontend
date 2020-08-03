@@ -22,18 +22,18 @@ function App() {
             exact
             path="/ping-pong"
             component={() => (
-              <AuthPageLayout>
-                <PingPong />
-              </AuthPageLayout>
+              // <AuthPageLayout>
+              <PingPong />
+              // {/* </AuthPageLayout> */}
             )}
           />
           <Route
             exact
             path="/score"
             component={() => (
-              <AuthPageLayout>
-                <Score />
-              </AuthPageLayout>
+              // <AuthPageLayout>
+              <Score />
+              // </AuthPageLayout>
             )}
           />
         </Switch>

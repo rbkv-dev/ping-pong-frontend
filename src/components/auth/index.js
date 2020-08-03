@@ -6,7 +6,7 @@ export const AuthContext = React.createContext();
 export const AuthLayout = ({ children }) => {
   const [isAuth, setAuth] = useState(false);
 
-  const onSignIn = async (email, password) => {
+  const onSignIn = async ({ email, password }) => {
     const response = await fetch("http://localhost:3001/api/user/sign-in", {
       method: "POST",
       mode: "cors",
@@ -25,8 +25,8 @@ export const AuthLayout = ({ children }) => {
     if (_response) setAuth(true);
   };
 
-  const onSignUp = async (email, password, username) => {
-    await fetch("http://localhost:3001/api/user/sign-up", {
+  const onSignUp = async ({ email, password, username }) => {
+    const response = await fetch("http://localhost:3001/api/user/sign-up", {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
@@ -36,12 +36,15 @@ export const AuthLayout = ({ children }) => {
       },
       method: "post",
       body: JSON.stringify({
-        nick: username,
+        username: username,
         email: email,
         password: password,
       }),
     });
-    setAuth(true);
+    const _response = await response.json();
+    console.log(_response);
+    if (_response) setAuth(true);
+    // setAuth(true);
   };
 
   const onSignOut = () => {

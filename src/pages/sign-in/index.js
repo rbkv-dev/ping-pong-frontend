@@ -12,16 +12,16 @@ import {
   StyledForm,
   StyledTitle,
   StyledText,
+  StyledBubbleMessage,
+  StyledBubbleBall,
 } from "../styled";
-
-// import { Bubble } from "./styled";
 
 export const SignIn = () => {
   const [authData, setAuthData] = useState(["", ""]);
 
-  const onChange = (i) => (e) => {
-    const _authData = [...authData];
-    _authData[i] = e.target.value;
+  const onChange = ({ target: { id, value } }) => {
+    const _authData = authData;
+    _authData[id] = value;
     setAuthData(_authData);
   };
 
@@ -37,29 +37,32 @@ export const SignIn = () => {
             <StyledForm
               onSubmit={(e) => {
                 e.preventDefault();
-                onSignIn(...authData);
+                onSignIn(authData);
               }}
             >
               <StyledTitle>Sign in to start playing</StyledTitle>
               <Input
-                type="text"
+                type="email"
+                id="email"
                 placeholder="email"
-                value={authData[0]}
-                onChange={onChange(0)}
+                value={authData["email"]}
+                onChange={onChange}
               />
               <Input
                 type="password"
+                id="password"
                 placeholder="password"
-                value={authData[1]}
-                onChange={onChange(1)}
+                value={authData["password"]}
+                onChange={onChange}
               />
               <Button type="submit" text="SIGN IN" />
               <StyledText>
                 No account? <Link to="/sign-up">Sign Up</Link>
               </StyledText>
-              <div className="cbbl">
-                <div className="ball"></div>Hello
-              </div>
+              <StyledBubbleMessage>
+                Hello
+                <StyledBubbleBall />
+              </StyledBubbleMessage>
             </StyledForm>
           </StyledPageWrapper>
         );

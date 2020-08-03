@@ -10,18 +10,32 @@ import {
   StyledForm,
   StyledTitle,
   StyledText,
+  StyledBubbleMessage,
+  StyledBubbleBall,
 } from "../styled";
 
-export const SignUp = () => {
-  const [authData, setAuthData] = useState(["", ""]);
+import {
+  emailValidation,
+  passwordValidation,
+} from "../../helpers/customValidation";
 
-  const onChange = (i) => (e) => {
-    const _authData = [...authData];
-    _authData[i] = e.target.value;
-    setAuthData(_authData);
+export const SignUp = () => {
+  const [authData, setAuthData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const onChange = ({ target: { id, value } }) => {
+    const _authData = authData;
+    _authData[id] = value;
+    setAuthData({ ..._authData });
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(authData);
+  }, [authData]);
 
   return (
     <AuthConsumer>
@@ -33,46 +47,52 @@ export const SignUp = () => {
             <StyledForm
               onSubmit={(e) => {
                 e.preventDefault();
-                onSignUp(...authData);
+                if (!emailValidation(authData.email)) {
+                  setErrorMessage("Invalid email address!");
+                } else if (!passwordValidation(authData.password)) {
+                  setErrorMessage("Password must be more 6 symbols!");
+                } else {
+                  setErrorMessage("");
+                  onSignUp(authData);
+                }
               }}
             >
               <StyledTitle>Sign up to start playing</StyledTitle>
+              {/* <p>{authData}</p> */}
+              {/* {console.log(authData)} */}
               <Input
                 type="text"
+                id="username"
                 placeholder="username"
-                value={authData[2]}
-                onChange={onChange(2)}
+                value={authData.username}
+                onChange={onChange}
               />
               <Input
                 type="text"
+                id="email"
                 placeholder="email"
-                value={authData[0]}
-                onChange={onChange(0)}
+                value={authData.email}
+                onChange={onChange}
               />
               <Input
                 type="password"
+                id="password"
                 placeholder="password"
-                value={authData[1]}
-                onChange={onChange(1)}
+                value={authData.password}
+                onChange={onChange}
               />
               <Button text="SIGN UP" type="submit" />
               <StyledText>
                 Already have an account? <Link to="/sign-in">Sign In</Link>
               </StyledText>
+              {errorMessage && (
+                <StyledBubbleMessage>
+                  {errorMessage}
+                  <StyledBubbleBall />
+                </StyledBubbleMessage>
+              )}
             </StyledForm>
           </StyledPageWrapper>
-          //   <StyledPageWrapper flexJC="center">
-          //   <StyledForm>
-          //     <StyledTitle>Sign up to start playing</StyledTitle>
-          //     <Input placeholder="username" type="text" />
-          //     <Input placeholder="email" type="email" />
-          //     <Input placeholder="password" type="password" />
-          //     <Button text="SIGN UP" type="submit" />
-          //     <StyledText>
-          //       Already have an account? <Link to="/sign-in">Sign In</Link>
-          //     </StyledText>
-          //   </StyledForm>
-          // </StyledPageWrapper>
         );
       }}
     </AuthConsumer>

@@ -3,7 +3,7 @@ import { AuthContext } from "./index";
 import { Redirect } from "react-router-dom";
 
 export const AuthPageLayout = ({ children }) => {
-  const { isAuth, onSignOut } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
 
   if (isAuth) {
     return <>{children}</>;

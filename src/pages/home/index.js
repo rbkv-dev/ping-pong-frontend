@@ -35,14 +35,14 @@ export const Home = () => {
         <span>v 0.1</span>
       </StyledHeader>
 
-      {/* <StyledMainWrapper>
+      <StyledMainWrapper>
         <StyledLinkWrapper>
           <StyledLink to="/sign-in">Sign In</StyledLink>
           <span>&nbsp;&nbsp;or&nbsp;&nbsp;</span>
           <StyledLink to="/sign-up">Sign Up</StyledLink>
         </StyledLinkWrapper>
         <span>TO START GAME</span>
-      </StyledMainWrapper> */}
+      </StyledMainWrapper>
 
       <StyledMainWrapper>
         <StyledLinkPlay to="/ping-pong">

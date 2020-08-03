@@ -5,8 +5,6 @@ import { AuthConsumer } from "../../components/auth";
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 
-import "./bubble.css";
-
 import {
   StyledPageWrapper,
   StyledForm,
@@ -16,13 +14,23 @@ import {
   StyledBubbleBall,
 } from "../styled";
 
+import {
+  emailValidation,
+  passwordValidation,
+} from "../../helpers/customValidation";
+
 export const SignIn = () => {
-  const [authData, setAuthData] = useState(["", ""]);
+  const [authData, setAuthData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onChange = ({ target: { id, value } }) => {
     const _authData = authData;
     _authData[id] = value;
-    setAuthData(_authData);
+    setAuthData({ ..._authData });
   };
 
   useEffect(() => {}, []);
@@ -37,32 +45,41 @@ export const SignIn = () => {
             <StyledForm
               onSubmit={(e) => {
                 e.preventDefault();
-                onSignIn(authData);
+                if (!emailValidation(authData.email)) {
+                  setErrorMessage("Invalid email address!");
+                } else if (!passwordValidation(authData.password)) {
+                  setErrorMessage("Password must be more 6 symbols!");
+                } else {
+                  setErrorMessage("");
+                  onSignIn(authData);
+                }
               }}
             >
               <StyledTitle>Sign in to start playing</StyledTitle>
               <Input
-                type="email"
+                type="text"
                 id="email"
                 placeholder="email"
-                value={authData["email"]}
+                value={authData.email}
                 onChange={onChange}
               />
               <Input
                 type="password"
                 id="password"
                 placeholder="password"
-                value={authData["password"]}
+                value={authData.password}
                 onChange={onChange}
               />
               <Button type="submit" text="SIGN IN" />
               <StyledText>
                 No account? <Link to="/sign-up">Sign Up</Link>
               </StyledText>
-              <StyledBubbleMessage>
-                Hello
-                <StyledBubbleBall />
-              </StyledBubbleMessage>
+              {errorMessage && (
+                <StyledBubbleMessage>
+                  {errorMessage}
+                  <StyledBubbleBall />
+                </StyledBubbleMessage>
+              )}
             </StyledForm>
           </StyledPageWrapper>
         );

@@ -25,6 +25,7 @@ export const SignUp = () => {
     email: "",
     password: "",
   });
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const onChange = ({ target: { id, value } }) => {
@@ -33,9 +34,7 @@ export const SignUp = () => {
     setAuthData({ ..._authData });
   };
 
-  useEffect(() => {
-    console.log(authData);
-  }, [authData]);
+  useEffect(() => {}, []);
 
   return (
     <AuthConsumer>
@@ -58,8 +57,6 @@ export const SignUp = () => {
               }}
             >
               <StyledTitle>Sign up to start playing</StyledTitle>
-              {/* <p>{authData}</p> */}
-              {/* {console.log(authData)} */}
               <Input
                 type="text"
                 id="username"
@@ -81,7 +78,7 @@ export const SignUp = () => {
                 value={authData.password}
                 onChange={onChange}
               />
-              <Button text="SIGN UP" type="submit" />
+              <Button type="submit" text="SIGN UP" />
               <StyledText>
                 Already have an account? <Link to="/sign-in">Sign In</Link>
               </StyledText>

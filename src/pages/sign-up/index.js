@@ -31,6 +31,7 @@ export const SignUp = () => {
     const _authData = authData;
     _authData[id] = value;
     setAuthData({ ..._authData });
+    setErrorMessage("");
   };
 
   useEffect(() => {}, []);

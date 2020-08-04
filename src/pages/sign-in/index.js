@@ -30,6 +30,7 @@ export const SignIn = () => {
     const _authData = authData;
     _authData[id] = value;
     setAuthData({ ..._authData });
+    setErrorMessage("");
   };
 
   useEffect(() => {}, []);

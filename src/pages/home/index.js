@@ -24,7 +24,7 @@ export const Home = () => {
 
   return (
     <StyledPageWrapper flexJC="center">
-      <StyledSignOut eventFunction={onSignOut}>Sign Out</StyledSignOut>
+      <StyledSignOut onMouseDown={onSignOut}>Sign Out</StyledSignOut>
 
       <StyledHeader>
         <StyledBestScore>

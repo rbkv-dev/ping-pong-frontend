@@ -9,6 +9,7 @@ import { Game } from "./gameEvents";
 
 export const PingPong = () => {
   const { onSignOut } = useContext(AuthContext);
+  // console.log(onSignOut);
 
   const canvasRef = useRef(null);
   const gameRef = useRef(null);
@@ -40,7 +41,7 @@ export const PingPong = () => {
       <StyledScore>score: {gameScore}</StyledScore>
       <StyledCanvas ref={canvasRef} width="700" height="420"></StyledCanvas>
       {!gameState && <Button text="START" eventFunction={startGame} />}
-      <StyledSignOut eventFunction={onSignOut}>Sign Out</StyledSignOut>
+      <StyledSignOut onMouseDown={onSignOut}>Sign Out</StyledSignOut>
     </StyledPageWrapper>
   );
 };

@@ -5,8 +5,8 @@ import { useCookies } from "react-cookie";
 export const AuthContext = React.createContext();
 
 export const AuthLayout = ({ children }) => {
-  const [isAuth, setAuth] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [isAuth, setAuth] = useState(cookies.token || false);
 
   const onSignIn = async ({ email, password }) => {
     const response = await fetch("http://localhost:3001/api/user/sign-in", {
@@ -25,9 +25,8 @@ export const AuthLayout = ({ children }) => {
     });
     const _response = await response.json();
     if (_response) {
-      console.log("Redirect", _response);
       setCookie("token", _response.token, { path: "/" });
-      setAuth(true);
+      setAuth(cookies.token);
     }
     // return <Redirect to="/" />;
     // if (_response) setAuth(true);
@@ -52,9 +51,8 @@ export const AuthLayout = ({ children }) => {
     const _response = await response.json();
     console.log(_response);
     if (_response) {
-      console.log("Redirect", _response);
       setCookie("token", _response.token, { path: "/" });
-      setAuth(true);
+      setAuth(cookies.token);
     }
     // return <Redirect to="/" />;
     // if (_response) setAuth(_response.token);
@@ -68,13 +66,7 @@ export const AuthLayout = ({ children }) => {
   };
 
   useEffect(() => {
-    // let isMouth = true;
-    // firebase.auth().onAuthStateChanged(() => {
-    //   isMouth && setAuth(!!firebase.auth().currentUser);
-    // });
-    // return () => {
-    //   isMouth = false;
-    // };
+    // if (cookies.token) setAuth(cookies.token);
   }, []);
 
   return (

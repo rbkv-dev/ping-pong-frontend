@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 export const StyledScoreTableWrapper = styled.div`
   font-size: 2em;
-  width: 90%;
-  max-height: 90%;
-  height: 90%;
+  width: 90vw;
+  max-height: 85vh;
+  height: 85vh;
   border-style: solid;
   border-width: 0.125em 0;
   box-shadow: -0.25em 0 0 -0.125em, 0.25em 0 0 -0.125em;
   margin: 0 0.375em;
+  margin-top: 5.5vh;
   padding: 0 20px 0.5em 20px;
 
   position: relative;
@@ -153,5 +154,36 @@ export const StyledScrollButton = styled.button`
   &:after {
     transform: translate(-97%, 0%)
       ${(props) => `rotate(${props.up ? "-20deg" : "20deg"})`};
+  }
+`;
+
+export const StyledBackButton = styled.div`
+  /* border: 2px solid #fff; */
+  font-size: 2em;
+  margin: 16px;
+  /* border-style: solid; */
+  /* border-width: 0.125em 0; */
+  position: absolute;
+  bottom: 0;
+  left: calc((100vw - 90vw) / 2);
+  z-index: 1;
+  padding: 4px 10px;
+  cursor: pointer;
+  /* &:before {
+    content: "";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -0.125em;
+    right: -0.125em;
+    border: inherit;
+    border-width: 0 0.125em;
+    pointer-events: none;
+    z-index: -1;
+  } */
+  @media (max-width: 576px) {
+    left: 50%;
+    transform: translate(-50%);
+    margin: 16px 0px;
   }
 `;

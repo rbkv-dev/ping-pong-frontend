@@ -16,16 +16,14 @@ import {
 } from "./styled";
 
 export const Home = () => {
-  const { onSignOut } = useContext(AuthContext);
-
+  const { onSignOut, isAuth } = useContext(AuthContext);
+  console.log(isAuth);
   useEffect(() => {
     return () => {};
   }, []);
 
   return (
     <StyledPageWrapper flexJC="center">
-      <StyledSignOut onMouseDown={onSignOut}>Sign Out</StyledSignOut>
-
       <StyledHeader>
         <StyledBestScore>
           <span>Best player:</span>
@@ -35,27 +33,32 @@ export const Home = () => {
         <span>v 0.1</span>
       </StyledHeader>
 
-      <StyledMainWrapper>
-        <StyledLinkWrapper>
-          <StyledLink to="/sign-in">Sign In</StyledLink>
-          <span>&nbsp;&nbsp;or&nbsp;&nbsp;</span>
-          <StyledLink to="/sign-up">Sign Up</StyledLink>
-        </StyledLinkWrapper>
-        <span>TO START GAME</span>
-      </StyledMainWrapper>
-
-      <StyledMainWrapper>
-        <StyledLinkPlay to="/ping-pong">
-          {"-> "}
-          <span>PLAY</span>
-          {" <-"}
-        </StyledLinkPlay>
-        <StyledLinkScore to="/score">
-          {"< "}
-          <span>Score</span>
-          {" >"}
-        </StyledLinkScore>
-      </StyledMainWrapper>
+      {isAuth ? (
+        <>
+          <StyledSignOut onMouseDown={onSignOut}>Sign Out</StyledSignOut>
+          <StyledMainWrapper>
+            <StyledLinkPlay to="/ping-pong">
+              {"-> "}
+              <span>PLAY</span>
+              {" <-"}
+            </StyledLinkPlay>
+            <StyledLinkScore to="/score">
+              {"< "}
+              <span>Score</span>
+              {" >"}
+            </StyledLinkScore>
+          </StyledMainWrapper>
+        </>
+      ) : (
+        <StyledMainWrapper>
+          <StyledLinkWrapper>
+            <StyledLink to="/sign-in">Sign In</StyledLink>
+            <span>&nbsp;&nbsp;or&nbsp;&nbsp;</span>
+            <StyledLink to="/sign-up">Sign Up</StyledLink>
+          </StyledLinkWrapper>
+          <span>TO START GAME</span>
+        </StyledMainWrapper>
+      )}
 
       <StyledAnimatedBall />
       <StyledAnimatedBallShadow />

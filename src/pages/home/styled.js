@@ -197,7 +197,7 @@ export const StyledAnimatedBall = styled.div`
   bottom: 256px;
   right: 50px;
   animation: ${ball} 2.2s infinite;
-  animation-timing-function: cubic-bezier(0.74, 0.62, 0.28, 0.86);
+  animation-timing-function: ease-in-out;
   box-shadow: 0px 4px 0px rgba(150, 150, 150, 1);
 `;
 
@@ -211,6 +211,6 @@ export const StyledAnimatedBallShadow = styled.div`
   bottom: 16px;
   right: 50px;
   animation: ${ballShadow} 2.2s infinite;
-  animation-timing-function: cubic-bezier(0.74, 0.62, 0.28, 0.86);
+  animation-timing-function: ease-in-out;
   box-shadow: 0px 3px 0px #101010;
 `;

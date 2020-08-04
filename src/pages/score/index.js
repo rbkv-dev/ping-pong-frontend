@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-
+import { useHistory } from "react-router-dom";
 import { StyledPageWrapper } from "../styled";
 
 import {
@@ -11,6 +11,7 @@ import {
   StyledUsername,
   StyledScore,
   StyledScrollButton,
+  StyledBackButton,
 } from "./styled";
 
 const data = [];
@@ -19,6 +20,7 @@ for (var i = 1; i <= 200; i++) {
 }
 
 export const Score = () => {
+  const history = useHistory();
   const scoreTableRef = useRef(null);
   const [scrollToUp, setScrollToUp] = useState(false);
   const [scrollToDown, setScrollToDown] = useState(false);
@@ -55,7 +57,7 @@ export const Score = () => {
   }, []);
 
   return (
-    <StyledPageWrapper flexJC="center">
+    <StyledPageWrapper flexJC="start">
       <StyledScoreTableWrapper>
         <StyledScoreTableHeader>Score Table</StyledScoreTableHeader>
         <StyledScrollButton up disabled={!scrollToUp} onMouseDown={moveUp} />
@@ -70,6 +72,13 @@ export const Score = () => {
         </StyledScoreTable>
         <StyledScrollButton disabled={!scrollToDown} onMouseDown={moveDown} />
       </StyledScoreTableWrapper>
+      <StyledBackButton
+        onMouseDown={() => {
+          history.goBack();
+        }}
+      >
+        {"< "} Go Back
+      </StyledBackButton>
     </StyledPageWrapper>
   );
 };

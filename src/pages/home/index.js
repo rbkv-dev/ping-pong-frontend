@@ -1,7 +1,7 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { StyledPageWrapper, StyledSignOut } from "../styled";
 import { AuthContext } from "../../components/auth";
-
+import { getScoreApi } from "../../helpers/api";
 import {
   StyledBestScore,
   StyledHeader,
@@ -17,18 +17,32 @@ import {
 
 export const Home = () => {
   const { onSignOut, isAuth } = useContext(AuthContext);
+  const [bestPlayer, setBestPlayer] = useState(null);
 
   useEffect(() => {
+    (async function fetchData() {
+      const _data = await getScoreApi();
+
+      const bestScore = _data.reduce((acc, curr) =>
+        acc.score > curr.score ? acc : curr
+      );
+
+      setBestPlayer(bestScore);
+    })();
     return () => {};
   }, []);
 
   return (
     <StyledPageWrapper flexJC="center">
       <StyledHeader>
-        <StyledBestScore>
-          <span>Best player:</span>
-          <span>username (1000)</span>
-        </StyledBestScore>
+        {bestPlayer && (
+          <StyledBestScore>
+            <span>Best player:</span>
+            <span>
+              {bestPlayer.username} ({bestPlayer.score})
+            </span>
+          </StyledBestScore>
+        )}
         8-bit PING PONG
         <span>v 0.1</span>
       </StyledHeader>

@@ -1,4 +1,4 @@
-import { setGameScoreApi } from "../../helpers/api";
+import { setGameScoreApi, getUserScoreApi } from "../../helpers/api";
 
 export class Game {
   constructor(canvasRef, setGameState, setGameScore, getUserInfoApi) {
@@ -17,6 +17,7 @@ export class Game {
     this.setGameState = setGameState;
     this.setGameScore = setGameScore;
     this.getUserInfoApi = getUserInfoApi;
+    this.getUserScoreApi = getUserScoreApi;
     this.setGameScoreApi = setGameScoreApi;
   }
   onMouseMove(e) {
@@ -121,6 +122,9 @@ export class Game {
     this.initField();
     this.setGameState();
     const _id = await this.getUserInfoApi();
-    this.setGameScoreApi(_id, this.score);
+    const maxScore = await this.getUserScoreApi(_id);
+    if (this.score > maxScore) {
+      this.setGameScoreApi(_id, this.score);
+    }
   };
 }

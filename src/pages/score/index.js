@@ -14,16 +14,14 @@ import {
   StyledScrollButton,
 } from "./styled";
 
-const data = [];
-for (var i = 1; i <= 200; i++) {
-  data.push(i);
-}
+import { getScoreApi } from "../../helpers/api";
 
 export const Score = () => {
   const history = useHistory();
   const scoreTableRef = useRef(null);
   const [scrollToUp, setScrollToUp] = useState(false);
   const [scrollToDown, setScrollToDown] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const scrollTracking = ({ target }) => {
     if (target.scrollTop >= target.scrollHeight - target.clientHeight - 10) {
@@ -45,6 +43,11 @@ export const Score = () => {
   };
 
   useEffect(() => {
+    (async function fetchData() {
+      const _data = await getScoreApi();
+      setUserData(_data);
+    })();
+
     if (
       scoreTableRef.current.scrollHeight > scoreTableRef.current.clientHeight
     ) {
@@ -62,13 +65,14 @@ export const Score = () => {
         <StyledScoreTableHeader>Score Table</StyledScoreTableHeader>
         <StyledScrollButton up disabled={!scrollToUp} onMouseDown={moveUp} />
         <StyledScoreTable ref={scoreTableRef}>
-          {data.map((e, key) => (
-            <StyledUserScore key={key}>
-              <StyledPosition>#{e}</StyledPosition>
-              <StyledUsername>username{e}</StyledUsername>
-              <StyledScore>{e}</StyledScore>
-            </StyledUserScore>
-          ))}
+          {userData &&
+            userData.map(({ username, score }, key) => (
+              <StyledUserScore key={key}>
+                <StyledPosition>#{key + 1}</StyledPosition>
+                <StyledUsername>{username}</StyledUsername>
+                <StyledScore>{score}</StyledScore>
+              </StyledUserScore>
+            ))}
         </StyledScoreTable>
         <StyledScrollButton disabled={!scrollToDown} onMouseDown={moveDown} />
       </StyledScoreTableWrapper>

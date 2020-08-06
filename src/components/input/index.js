@@ -1,8 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import { StyledInputWrapper, StyledInput } from "./styled";
 
 export const Input = ({ type, id, placeholder, value, onChange }) => {
-  useEffect(() => {}, [value]);
   return (
     <StyledInputWrapper>
       <StyledInput

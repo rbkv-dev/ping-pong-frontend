@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../components/auth";
 import { useHistory } from "react-router-dom";
-
+import { useCookies } from "react-cookie";
 import { StyledPageWrapper, StyledSignOut, StyledBackButton } from "../styled";
 
 import { StyledName, StyledScore, StyledCanvas } from "./styled";
@@ -14,8 +14,8 @@ import { getUserInfoApi } from "../../helpers/api";
 
 export const PingPong = () => {
   const history = useHistory();
-  const { isAuth, onSignOut } = useContext(AuthContext);
-  // console.log(isAuth);
+  const [cookies] = useCookies(["token"]);
+  const { onSignOut } = useContext(AuthContext);
 
   const canvasRef = useRef(null);
   const gameRef = useRef(null);
@@ -29,14 +29,13 @@ export const PingPong = () => {
       canvasRef,
       () => setGameState(false),
       (score) => setGameScore(score),
-      () => getUserInfoApi(isAuth)
-      // () => setGameScoreApi()
+      () => getUserInfoApi(cookies.token)
     );
     gameRef.current.initField();
     return () => {
       gameRef.current.stopGame();
     };
-  }, []);
+  }, [cookies.token]);
 
   // useEffect(() => {
   //   console.log(gameScore);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -23,12 +23,13 @@ export const AuthLayout = ({ children }) => {
       }),
     });
     const _response = await response.json();
-    if (_response) {
+
+    if (_response.token) {
       setCookie("token", _response.token, { path: "/" });
-      setAuth(cookies.token);
+      console.log(cookies.token);
+      setAuth(true);
     }
-    // return <Redirect to="/" />;
-    // if (_response) setAuth(true);
+    return _response.message;
   };
 
   const onSignUp = async ({ email, password, username }) => {
@@ -47,25 +48,17 @@ export const AuthLayout = ({ children }) => {
       }),
     });
     const _response = await response.json();
-    console.log(_response);
     if (_response) {
       setCookie("token", _response.token, { path: "/" });
-      setAuth(cookies.token);
+      setAuth(true);
     }
-    // return <Redirect to="/" />;
-    // if (_response) setAuth(_response.token);
   };
 
   const onSignOut = () => {
-    // console.log("onSignOut");
     setAuth(false);
     removeCookie("token");
     return <Redirect to="/" />;
   };
-
-  useEffect(() => {
-    // if (cookies.token) setAuth(cookies.token);
-  }, []);
 
   return (
     <AuthContext.Provider

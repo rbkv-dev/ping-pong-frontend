@@ -1,5 +1,7 @@
+import { setGameScoreApi } from "../../helpers/api";
+
 export class Game {
-  constructor(canvasRef, setGameState, setGameScore) {
+  constructor(canvasRef, setGameState, setGameScore, getUserInfoApi) {
     this.canvasRef = canvasRef;
     this.canvas = canvasRef.current;
     this.gameLoopIntervalId = null;
@@ -14,6 +16,8 @@ export class Game {
     this.onMouseMove = this.onMouseMove.bind(this);
     this.setGameState = setGameState;
     this.setGameScore = setGameScore;
+    this.getUserInfoApi = getUserInfoApi;
+    this.setGameScoreApi = setGameScoreApi;
   }
   onMouseMove(e) {
     this.mouseY = e.clientY - this.canvasRef.current.offsetTop;
@@ -26,7 +30,7 @@ export class Game {
     this.dx = 5;
     this.dy = Math.floor(Math.random() * (5 - -5)) + -5;
     this.userY = this.mouseY;
-    window.addEventListener("mousemove", this.onMouseMove);
+    // window.addEventListener("mousemove", this.onMouseMove);
     this.resetField();
   }
   resetField() {
@@ -96,7 +100,6 @@ export class Game {
       this.x >= this.canvas.width - 15 &&
       (this.y >= this.userY + 50 || this.y <= this.userY - 50)
     ) {
-      this.score = 0;
       this.setGameScore(this.score);
       this.stopGame();
     }
@@ -107,13 +110,17 @@ export class Game {
     this.drawUser();
   }
   startGame() {
+    this.score = 0;
+    window.addEventListener("mousemove", this.onMouseMove);
     this.gameLoopIntervalId = setInterval(this.gameLoop.bind(this), 1000 / 60);
   }
-  stopGame() {
+  stopGame = async () => {
     window.removeEventListener("mousemove", this.onMouseMove);
     clearInterval(this.gameLoopIntervalId);
     this.gameLoopIntervalId = null;
     this.initField();
     this.setGameState();
-  }
+    const _id = await this.getUserInfoApi();
+    this.setGameScoreApi(_id, this.score);
+  };
 }

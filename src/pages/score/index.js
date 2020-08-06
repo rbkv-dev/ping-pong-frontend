@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { StyledPageWrapper } from "../styled";
+
+import { StyledPageWrapper, StyledBackButton } from "../styled";
 
 import {
   StyledScoreTableWrapper,
@@ -11,7 +12,6 @@ import {
   StyledUsername,
   StyledScore,
   StyledScrollButton,
-  StyledBackButton,
 } from "./styled";
 
 const data = [];

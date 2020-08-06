@@ -17,7 +17,7 @@ import {
 
 export const Home = () => {
   const { onSignOut, isAuth } = useContext(AuthContext);
-  console.log(isAuth);
+
   useEffect(() => {
     return () => {};
   }, []);

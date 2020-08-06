@@ -17,7 +17,6 @@ export const AuthLayout = ({ children }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      method: "post",
       body: JSON.stringify({
         email: email,
         password: password,
@@ -41,7 +40,6 @@ export const AuthLayout = ({ children }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      method: "post",
       body: JSON.stringify({
         username: username,
         email: email,
@@ -59,7 +57,7 @@ export const AuthLayout = ({ children }) => {
   };
 
   const onSignOut = () => {
-    console.log("onSignOut");
+    // console.log("onSignOut");
     setAuth(false);
     removeCookie("token");
     return <Redirect to="/" />;

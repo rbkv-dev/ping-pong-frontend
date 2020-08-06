@@ -102,3 +102,19 @@ export const StyledBubbleMessage = styled.div`
     border-right: 3px solid #000;
   }
 `;
+
+export const StyledBackButton = styled.div`
+  font-size: 2em;
+  margin: 16px;
+  position: absolute;
+  bottom: 0;
+  left: calc((100vw - 90vw) / 2);
+  z-index: 1;
+  padding: 4px 10px;
+  cursor: pointer;
+  @media (max-width: 576px) {
+    left: 50%;
+    transform: translate(-50%);
+    margin: 16px 0px;
+  }
+`;

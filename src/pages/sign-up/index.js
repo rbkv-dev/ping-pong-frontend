@@ -16,6 +16,7 @@ import {
 import {
   emailValidation,
   passwordValidation,
+  usernameValidation,
 } from "../../helpers/customValidation";
 
 export const SignUp = () => {
@@ -46,10 +47,14 @@ export const SignUp = () => {
             <StyledForm
               onSubmit={async (e) => {
                 e.preventDefault();
-                if (!emailValidation(authData.email)) {
+                if (!usernameValidation(authData.username)) {
+                  setErrorMessage(
+                    "Password must be between 4 and 12 characters and can contain a-z, A-Z letters,  '_' or '-' symbols !"
+                  );
+                } else if (!emailValidation(authData.email)) {
                   setErrorMessage("Invalid email address!");
                 } else if (!passwordValidation(authData.password)) {
-                  setErrorMessage("Password must be more 6 symbols!");
+                  setErrorMessage("Password must be between 6 and 36");
                 } else {
                   const error = await onSignUp(authData);
                   console.log(error);

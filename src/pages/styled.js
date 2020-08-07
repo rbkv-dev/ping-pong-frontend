@@ -58,6 +58,7 @@ export const StyledBubbleMessage = styled.div`
   position: relative;
   display: inline-block;
   width: calc(100% - 20px);
+  max-width: 280px;
   margin-top: 5px;
   margin-bottom: 0px;
   margin-left: 8px;

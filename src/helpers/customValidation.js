@@ -4,8 +4,14 @@ export const emailValidation = function (email) {
   return isValid;
 };
 
-export const passwordValidation = function (email) {
-  const passwordFormat = /.{6,}/;
-  const isValid = passwordFormat.test(email);
+export const passwordValidation = function (password) {
+  const passwordFormat = /^.{6,36}$/;
+  const isValid = passwordFormat.test(password);
+  return isValid;
+};
+
+export const usernameValidation = function (username) {
+  const usernameFormat = /^[a-zA-Z0-9_-]{4,12}$/;
+  const isValid = usernameFormat.test(username);
   return isValid;
 };

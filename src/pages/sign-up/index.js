@@ -44,15 +44,20 @@ export const SignUp = () => {
         return (
           <StyledPageWrapper flexJC="center">
             <StyledForm
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 if (!emailValidation(authData.email)) {
                   setErrorMessage("Invalid email address!");
                 } else if (!passwordValidation(authData.password)) {
                   setErrorMessage("Password must be more 6 symbols!");
                 } else {
-                  setErrorMessage("");
-                  onSignUp(authData);
+                  const error = await onSignUp(authData);
+                  console.log(error);
+                  if (error) {
+                    setErrorMessage(error);
+                  } else {
+                    setErrorMessage("");
+                  }
                 }
               }}
             >

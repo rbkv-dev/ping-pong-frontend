@@ -22,12 +22,12 @@ export const Home = () => {
   useEffect(() => {
     (async function fetchData() {
       const _data = await getScoreApi();
-
-      const bestScore = _data.reduce((acc, curr) =>
-        acc.score > curr.score ? acc : curr
-      );
-
-      setBestPlayer(bestScore);
+      if (_data.length > 0) {
+        const bestScore = _data.reduce((acc, curr) =>
+          acc.score > curr.score ? acc : curr
+        );
+        setBestPlayer(bestScore);
+      }
     })();
     return () => {};
   }, []);

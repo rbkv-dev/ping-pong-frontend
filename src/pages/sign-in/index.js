@@ -51,6 +51,7 @@ export const SignIn = () => {
                   setErrorMessage("Password must be more 6 symbols!");
                 } else {
                   const error = await onSignIn(authData);
+                  console.log(error);
                   if (error) {
                     setErrorMessage(error);
                   } else {

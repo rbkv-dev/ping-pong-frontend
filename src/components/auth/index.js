@@ -26,10 +26,12 @@ export const AuthLayout = ({ children }) => {
 
     if (_response.token) {
       setCookie("token", _response.token, { path: "/" });
-      console.log(cookies.token);
       setAuth(true);
+    } else {
+      setAuth(false);
+      return _response.message;
     }
-    return _response.message;
+    // console.log(_response.message);
   };
 
   const onSignUp = async ({ email, password, username }) => {
@@ -48,9 +50,12 @@ export const AuthLayout = ({ children }) => {
       }),
     });
     const _response = await response.json();
-    if (_response) {
+    if (_response.token) {
       setCookie("token", _response.token, { path: "/" });
       setAuth(true);
+    } else {
+      setAuth(false);
+      return _response.message;
     }
   };
 

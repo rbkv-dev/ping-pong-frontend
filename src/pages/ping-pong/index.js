@@ -1,21 +1,17 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../components/auth";
 import { useHistory } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import { StyledPageWrapper, StyledSignOut, StyledBackButton } from "../styled";
-
-import { StyledName, StyledScore, StyledCanvas } from "./styled";
-
-import { Button } from "../../components/button";
-
-import { Game } from "./gameEvents";
 
 import { getUserInfoApi } from "../../helpers/api";
+import { Button } from "../../components/button";
+import { Game } from "./gameEvents";
+
+import { StyledPageWrapper, StyledSignOut, StyledBackButton } from "../styled";
+import { StyledName, StyledScore, StyledCanvas } from "./styled";
 
 export const PingPong = () => {
   const history = useHistory();
-  const [cookies] = useCookies(["token"]);
-  const { onSignOut } = useContext(AuthContext);
+  const { isAuth, onSignOut } = useContext(AuthContext);
 
   const canvasRef = useRef(null);
   const gameRef = useRef(null);
@@ -29,17 +25,13 @@ export const PingPong = () => {
       canvasRef,
       () => setGameState(false),
       (score) => setGameScore(score),
-      () => getUserInfoApi(cookies.token)
+      () => getUserInfoApi(isAuth)
     );
     gameRef.current.initField();
     return () => {
       gameRef.current.stopGame();
     };
-  }, [cookies.token]);
-
-  // useEffect(() => {
-  //   console.log(gameScore);
-  // }, [gameScore]);
+  }, [isAuth]);
 
   const startGame = () => {
     gameRef.current.startGame();

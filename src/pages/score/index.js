@@ -45,6 +45,7 @@ export const Score = () => {
   useEffect(() => {
     (async function fetchData() {
       const _data = await getScoreApi();
+      _data.sort((prev, next) => next.score - prev.score);
       setUserData(_data);
     })();
 

@@ -49,7 +49,7 @@ export const SignUp = () => {
                 e.preventDefault();
                 if (!usernameValidation(authData.username)) {
                   setErrorMessage(
-                    "Password must be between 4 and 12 characters and can contain a-z, A-Z letters,  '_' or '-' symbols !"
+                    "Username must be between 4 and 12 characters and can contain a-z, A-Z letters,  '_' or '-' symbols !"
                   );
                 } else if (!emailValidation(authData.email)) {
                   setErrorMessage("Invalid email address!");
@@ -57,7 +57,6 @@ export const SignUp = () => {
                   setErrorMessage("Password must be between 6 and 36");
                 } else {
                   const error = await onSignUp(authData);
-                  console.log(error);
                   if (error) {
                     setErrorMessage(error);
                   } else {

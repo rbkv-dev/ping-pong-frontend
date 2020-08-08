@@ -1,3 +1,40 @@
+export async function signUpApi(username, email, password) {
+  const response = await fetch("http://localhost:3001/api/user/sign-up", {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      email: email,
+      password: password,
+    }),
+  });
+  const _response = await response.json();
+  return _response;
+}
+
+export async function signInApi(email, password) {
+  const response = await fetch("http://localhost:3001/api/user/sign-in", {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  });
+  const _response = await response.json();
+  return _response;
+}
+
 export async function getUserInfoApi(token) {
   let _id = "";
   await fetch("http://localhost:3001/api/user/self", {
@@ -64,6 +101,4 @@ export function setGameScoreApi(_id, score) {
       score: score,
     }),
   });
-  // .then((res) => res.json())
-  // .then((_res) => console.log(_res));
 }

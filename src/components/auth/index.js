@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
+import { signInApi, signUpApi } from "../../helpers/api";
 export const AuthContext = React.createContext();
 
 export const AuthLayout = ({ children }) => {
@@ -9,50 +10,21 @@ export const AuthLayout = ({ children }) => {
   const [isAuth, setAuth] = useState(cookies.token || false);
 
   const onSignIn = async ({ email, password }) => {
-    const response = await fetch("http://localhost:3001/api/user/sign-in", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-    const _response = await response.json();
-
+    const _response = await signInApi(email, password);
     if (_response.token) {
       setCookie("token", _response.token, { path: "/" });
-      setAuth(true);
+      setAuth(_response.token);
     } else {
       setAuth(false);
       return _response.message;
     }
-    // console.log(_response.message);
   };
 
   const onSignUp = async ({ email, password, username }) => {
-    const response = await fetch("http://localhost:3001/api/user/sign-up", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
-      }),
-    });
-    const _response = await response.json();
+    const _response = await signUpApi(username, email, password);
     if (_response.token) {
       setCookie("token", _response.token, { path: "/" });
-      setAuth(true);
+      setAuth(_response.token);
     } else {
       setAuth(false);
       return _response.message;
